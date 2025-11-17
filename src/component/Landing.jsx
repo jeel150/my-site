@@ -457,8 +457,6 @@ if (islandSectionRef.current) {
     {/* Add your buttons here */}
   </div>
 </div>
-
-
     </div>
   );
 }
