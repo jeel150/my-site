@@ -31,6 +31,143 @@ body {
   overflow-x: hidden;
 }
 
+/* ========== ENQUIRE FORM STYLES ========== */
+.enquire-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+}
+
+.enquire-form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.enquire-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.enquire-form-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #666;
+  cursor: pointer;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.enquire-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: #666;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.textarea-icon {
+  align-self: flex-start;
+  margin-top: 12px;
+}
+
+.input-with-icon input,
+.input-with-icon textarea {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+  background: #fafafa;
+}
+
+.input-with-icon textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding-top: 15px;
+}
+
+.input-with-icon input:focus,
+.input-with-icon textarea:focus {
+  outline: none;
+  border-color: #4a5f7a;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(74, 95, 122, 0.1);
+}
+
+.submit-btn {
+  background: #4a5f7a;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background: #3a4f6a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 95, 122, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
 /* ========== DASHBOARD CONTAINER ========== */
 .dashboard-container {
   position: fixed;
@@ -678,6 +815,11 @@ body {
   .view-heading {
     font-size: 2.5rem;
   }
+  
+  .enquire-form-container {
+    max-width: 550px;
+    padding: 35px;
+  }
 }
 
 /* Full HD Displays (1920px-2559px) */
@@ -1156,6 +1298,11 @@ body {
     padding: 9px 24px;
     font-size: 0.85rem;
   }
+  
+  .enquire-form-container {
+    padding: 25px;
+    max-width: 450px;
+  }
 }
 
 /* Small Tablets (600px-767px) */
@@ -1314,6 +1461,15 @@ body {
     padding: 8px 20px;
     font-size: 0.82rem;
   }
+  
+  .enquire-form-container {
+    padding: 20px;
+    max-width: 400px;
+  }
+  
+  .enquire-form-header h2 {
+    font-size: 1.3rem;
+  }
 }
 
 /* Mobile Landscape (480px-599px) */
@@ -1463,6 +1619,26 @@ body {
     padding: 8px 24px;
     font-size: 0.78rem;
     min-width: 120px;
+  }
+  
+  .enquire-form-container {
+    padding: 18px;
+    max-width: 350px;
+  }
+  
+  .enquire-form-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .input-with-icon input,
+  .input-with-icon textarea {
+    padding: 10px 12px 10px 40px;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    padding: 12px 25px;
+    font-size: 0.9rem;
   }
 }
 
@@ -1615,6 +1791,37 @@ body {
     font-size: 0.75rem;
     min-width: 110px;
   }
+  
+  .enquire-form-container {
+    padding: 15px;
+    max-width: 300px;
+    margin: 20px;
+  }
+  
+  .enquire-form-header h2 {
+    font-size: 1.1rem;
+  }
+  
+  .enquire-form-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+  
+  .input-with-icon input,
+  .input-with-icon textarea {
+    padding: 8px 10px 8px 35px;
+    font-size: 0.85rem;
+  }
+  
+  .input-icon {
+    left: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
 }
 
 /* Extra Small Mobile (<320px) */
@@ -1766,6 +1973,32 @@ body {
     font-size: 0.7rem;
     min-width: 100px;
   }
+  
+  .enquire-form-container {
+    padding: 12px;
+    max-width: 280px;
+    margin: 15px;
+  }
+  
+  .enquire-form-header h2 {
+    font-size: 1rem;
+  }
+  
+  .input-with-icon input,
+  .input-with-icon textarea {
+    padding: 7px 8px 7px 32px;
+    font-size: 0.8rem;
+  }
+  
+  .input-icon {
+    left: 10px;
+    font-size: 0.8rem;
+  }
+  
+  .submit-btn {
+    padding: 9px 18px;
+    font-size: 0.8rem;
+  }
 }
 
 /* ========== PRINT MEDIA QUERIES ========== */
@@ -1783,7 +2016,8 @@ body {
   .enquire-btn,
   .concept-btn,
   .architects-btn,
-  .view-buttons {
+  .view-buttons,
+  .enquire-overlay {
     display: none;
   }
   
@@ -1842,6 +2076,11 @@ body {
   
   .view-center {
     height: 65vh;
+  }
+  
+  .enquire-form-container {
+    max-height: 80vh;
+    overflow-y: auto;
   }
 }
 

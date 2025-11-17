@@ -1,4 +1,6 @@
 import React, {useRef, useState, useEffect} from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faPhone, faComment, faTimes } from '@fortawesome/free-solid-svg-icons';
 import main from "../assets/main.png";
 import logo from "../assets/logo.png";
 import home from "../assets/home.jpg";
@@ -10,7 +12,6 @@ import view from "../assets/view.jpg";
 import viewLeft from "../assets/viewRight.jpg";
 import viewRight from "../assets/viewLeft.jpg";
 
-
 export default function App() {
   const heroSectionRef = useRef(null);
   const collectionSectionRef = useRef(null);
@@ -20,15 +21,72 @@ export default function App() {
   const topSectionRef = useRef(null);
   const islandSectionRef = useRef(null);
   const viewSectionRef = useRef(null);
-
-
+  const enquireFormRef = useRef(null);
 
   const [heroToCollectionProgress, setHeroToCollectionProgress] = useState(0);
   const [homeToHomeSideProgress, setHomeToHomeSideProgress] = useState(0);
   const [homeSideToBoatProgress, setHomeSideToBoatProgress] = useState(0);
   const [topToIslandProgress, setTopToIslandProgress] = useState(0);
   const [islandToViewProgress, setIslandToViewProgress] = useState(0);
+  const [isEnquireOpen, setIsEnquireOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    comment: ''
+  });
 
+  const toggleEnquire = () => {
+    setIsEnquireOpen(!isEnquireOpen);
+  };
+
+  const closeEnquire = () => {
+    setIsEnquireOpen(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // You can add API call or other logic here
+    alert('Thank you for your enquiry! We will get back to you soon.');
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      comment: ''
+    });
+    closeEnquire();
+  };
+
+  // Close enquire form when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (enquireFormRef.current && !enquireFormRef.current.contains(event.target)) {
+        closeEnquire();
+      }
+    };
+
+    if (isEnquireOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isEnquireOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,9 +151,84 @@ if (islandSectionRef.current) {
   return (
     <div className="main-container">
 
+      {/* Enquire Now Popup */}
+      {isEnquireOpen && (
+        <div className="enquire-overlay">
+          <div className="enquire-form-container" ref={enquireFormRef}>
+            <div className="enquire-form-header">
+              <h2>Enquire Now</h2>
+              <button className="close-btn" onClick={closeEnquire}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            </div>
+            
+            <form className="enquire-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <div className="input-with-icon">
+                  <FontAwesomeIcon icon={faUser} className="input-icon" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <div className="input-with-icon">
+                  <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <div className="input-with-icon">
+                  <FontAwesomeIcon icon={faPhone} className="input-icon" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <div className="input-with-icon">
+                  <FontAwesomeIcon icon={faComment} className="input-icon textarea-icon" />
+                  <textarea
+                    name="comment"
+                    placeholder="Write your comment..."
+                    value={formData.comment}
+                    onChange={handleInputChange}
+                    rows="4"
+                  ></textarea>
+                </div>
+              </div>
+              
+              <button type="submit" className="submit-btn">
+                SUBMIT ENQUIRY
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* ========== FIXED NAVBAR (GLOBAL) ========== */}
       <div className="fixed-navbar">
-        <button className="enquire-btn fixed-enquire">Enquire Now</button>
+        <button className="enquire-btn fixed-enquire" onClick={toggleEnquire}>Enquire Now</button>
         <img src={logo} className="fixed-logo" />
       </div>
 
